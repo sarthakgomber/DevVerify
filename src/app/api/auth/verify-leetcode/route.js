@@ -1,10 +1,7 @@
 import { createClient } from '../../../../lib/supabase/server'
 import { fetchUserProfile } from '../../../../lib/leetcode'
-import { Resend } from 'resend'
 import { NextResponse } from 'next/server'
 import crypto from 'crypto'
-
-const resend = new Resend(process.env.RESEND_API_KEY)
 
 export async function POST(request) {
   try {
@@ -51,6 +48,8 @@ export async function POST(request) {
     }
 
     // Send verification email
+    const { Resend } = await import('resend')
+    const resend = new Resend(process.env.RESEND_API_KEY)
     const verifyUrl = `${process.env.NEXT_PUBLIC_APP_URL}/api/auth/confirm-leetcode?token=${token}`
 
     await resend.emails.send({
