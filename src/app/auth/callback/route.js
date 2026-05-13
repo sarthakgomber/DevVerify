@@ -5,7 +5,17 @@ import { cookies } from 'next/headers'
 export async function GET(request) {
   const { searchParams, origin } = new URL(request.url)
   const code = searchParams.get('code')
+  const error = searchParams.get('error')
+  const errorDescription = searchParams.get('error_description')
   const next = searchParams.get('next') ?? '/dashboard'
+
+  // If Supabase returned an error directly
+  if (error) {
+    console.error('OAuth error from provider:', error, errorDescription)
+    return NextResponse.redirect(
+      `${origin}/auth/login?error=${encodeURIComponent(errorDescription || error)}`
+    )
+  }
 
   if (code) {
     const cookieStore = cookies()
@@ -19,22 +29,32 @@ export async function GET(request) {
             return cookieStore.getAll()
           },
           setAll(cookiesToSet) {
-            cookiesToSet.forEach(({ name, value, options }) => {
-              cookieStore.set(name, value, options)
-            })
+            try {
+              cookiesToSet.forEach(({ name, value, options }) => {
+                cookieStore.set(name, value, options)
+              })
+            } catch (e) {
+              // This can fail in middleware, but is fine in route handlers
+              console.error('Cookie set error:', e.message)
+            }
           },
         },
       }
     )
 
-    const { error } = await supabase.auth.exchangeCodeForSession(code)
+    const { data, error: exchangeError } = await supabase.auth.exchangeCodeForSession(code)
 
-    if (!error) {
-      return NextResponse.redirect(`${origin}${next}`)
+    if (exchangeError) {
+      console.error('Code exchange error:', exchangeError.message)
+      return NextResponse.redirect(
+        `${origin}/auth/login?error=${encodeURIComponent(exchangeError.message)}`
+      )
     }
 
-    console.error('Auth callback error:', error.message)
+    // Success — redirect to dashboard
+    return NextResponse.redirect(`${origin}${next}`)
   }
 
-  return NextResponse.redirect(`${origin}/auth/login?error=auth_failed`)
+  // No code and no error — shouldn't happen
+  return NextResponse.redirect(`${origin}/auth/login?error=no_code_received`)
 }

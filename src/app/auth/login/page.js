@@ -1,7 +1,8 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Link from 'next/link'
+import { useSearchParams } from 'next/navigation'
 import { createClient } from '../../../lib/supabase/client'
 import { Shield } from 'lucide-react'
 import { GithubIcon } from '../../../components/icons'
@@ -13,6 +14,12 @@ export default function LoginPage() {
   const [oauthLoading, setOauthLoading] = useState('')
   const [error, setError] = useState('')
   const supabase = createClient()
+  const searchParams = useSearchParams()
+
+  useEffect(() => {
+    const urlError = searchParams.get('error')
+    if (urlError) setError(decodeURIComponent(urlError))
+  }, [searchParams])
 
   async function handleLogin(e) {
     e.preventDefault()
