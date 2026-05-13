@@ -2,8 +2,8 @@ import { NextResponse } from 'next/server'
 import { createServerClient } from '@supabase/ssr'
 
 export async function middleware(request) {
-  let response = NextResponse.next({
-    request: { headers: request.headers },
+  let supabaseResponse = NextResponse.next({
+    request,
   })
 
   const supabase = createServerClient(
@@ -15,22 +15,26 @@ export async function middleware(request) {
           return request.cookies.getAll()
         },
         setAll(cookiesToSet) {
-          cookiesToSet.forEach(({ name, value, options }) => {
-            request.cookies.set(name, value)
-            response = NextResponse.next({
-              request: { headers: request.headers },
-            })
-            response.cookies.set(name, value, options)
+          cookiesToSet.forEach(({ name, value }) => request.cookies.set(name, value))
+          supabaseResponse = NextResponse.next({
+            request,
           })
+          cookiesToSet.forEach(({ name, value, options }) =>
+            supabaseResponse.cookies.set(name, value, options)
+          )
         },
       },
     }
   )
 
-  // Refresh session
-  await supabase.auth.getUser()
+  // IMPORTANT: Do NOT call getUser on the callback route —
+  // it interferes with the PKCE code exchange
+  const { pathname } = request.nextUrl
+  if (!pathname.startsWith('/auth/callback')) {
+    await supabase.auth.getUser()
+  }
 
-  return response
+  return supabaseResponse
 }
 
 export const config = {
