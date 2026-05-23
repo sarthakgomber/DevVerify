@@ -7,7 +7,7 @@ export async function GET(request) {
   const code = searchParams.get('code')
   const error = searchParams.get('error')
   const errorDescription = searchParams.get('error_description')
-  const next = searchParams.get('next') ?? '/dashboard'
+  const next = '/dashboard'
 
   // If the provider returned an error
   if (error) {

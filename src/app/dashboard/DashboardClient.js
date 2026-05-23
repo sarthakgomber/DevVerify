@@ -75,7 +75,7 @@ export default function DashboardClient({ user: serverUser, analyses }) {
           <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-memphis-orange to-memphis-violet flex items-center justify-center border-2 border-memphis-orange/30">
             <Shield className="w-5 h-5 text-white" strokeWidth={2.5} />
           </div>
-          <span className="font-display font-bold text-xl tracking-tight">SIGIL</span>
+          <span className="font-display font-bold text-xl tracking-tight">DevVerify</span>
         </Link>
         <div className="flex items-center gap-4">
           <span className="text-txt-3 text-sm hidden sm:block font-mono">{user?.email}</span>
@@ -95,7 +95,7 @@ export default function DashboardClient({ user: serverUser, analyses }) {
               <h1 className="font-display font-bold text-2xl sm:text-3xl text-txt-1 mb-2">
                 {user?.user_metadata?.full_name || user?.email?.split('@')[0] || 'Developer'}
               </h1>
-              <p className="text-txt-2 text-sm">The SIGIL is ready to read.</p>
+              <p className="text-txt-2 text-sm">The SIGIL oracle is ready to read.</p>
             </div>
             <div className="flex items-center gap-2 mt-4">
               <div className="w-2 h-2 rounded-full bg-memphis-green animate-pulse" />

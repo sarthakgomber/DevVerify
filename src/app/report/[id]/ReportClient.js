@@ -169,7 +169,7 @@ export default function ReportClient({ analysis }) {
           <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-memphis-orange to-memphis-violet flex items-center justify-center border-2 border-memphis-orange/30">
             <Shield className="w-5 h-5 text-white" strokeWidth={2.5} />
           </div>
-          <span className="font-display font-bold text-xl tracking-tight">SIGIL</span>
+          <span className="font-display font-bold text-xl tracking-tight">DevVerify</span>
         </Link>
         <div className="flex items-center gap-3">
           <button onClick={handleCopy} className="btn-memphis btn-memphis-outline text-xs py-2.5 px-4 flex items-center gap-2">
@@ -502,7 +502,7 @@ export default function ReportClient({ analysis }) {
       <footer className="border-t-3 border-surface-3 py-10 text-center text-sm text-txt-3 bg-void/80 relative z-10 mt-16">
         <div className="flex items-center justify-center gap-2 font-display font-bold text-txt-1 text-md mb-2">
           <Shield className="w-5 h-5 text-memphis-orange" />
-          SIGIL · Code DNA Credibility Protocol
+          DevVerify · Code DNA Credibility Protocol
         </div>
         <p className="text-xs text-txt-3 max-w-md mx-auto leading-relaxed">
           Confidence reports are generated based on structural heuristic analysis of public programming logs. These metrics provide robust credibility indicators but do not constitute formal background certifications.

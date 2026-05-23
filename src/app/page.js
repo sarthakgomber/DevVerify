@@ -1,9 +1,10 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import Sphere from '../components/Sphere'
+import { createClient } from '../lib/supabase/client'
 import { Zap, Target, TrendingUp, Clock, GitBranch, Brain, Search, Shield, ArrowRight, Code2 } from 'lucide-react'
 
 export default function HomePage() {
@@ -14,7 +15,17 @@ export default function HomePage() {
   const [error, setError] = useState('')
   const [showAdvanced, setShowAdvanced] = useState(false)
   const [sphereState, setSphereState] = useState('idle')
+  const [user, setUser] = useState(null)
   const router = useRouter()
+  const supabase = createClient()
+
+  useEffect(() => {
+    supabase.auth.getUser().then(({ data }) => {
+      if (data?.user) {
+        setUser(data.user)
+      }
+    })
+  }, [])
 
   async function handleAnalyze(e) {
     e.preventDefault()
@@ -64,11 +75,19 @@ export default function HomePage() {
           <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-memphis-orange to-memphis-violet flex items-center justify-center border-2 border-memphis-orange/30">
             <Shield className="w-5 h-5 text-white" strokeWidth={2.5} />
           </div>
-          <span className="font-display font-bold text-xl tracking-tight">SIGIL</span>
+          <span className="font-display font-bold text-xl tracking-tight text-txt-1">DevVerify</span>
         </Link>
         <div className="flex items-center gap-4">
-          <Link href="/auth/login" className="btn-memphis-outline text-sm py-2 px-5 btn-memphis">Login</Link>
-          <Link href="/auth/signup" className="btn-memphis btn-memphis-primary text-sm py-2 px-5 hidden sm:flex">Sign Up</Link>
+          {user ? (
+            <Link href="/dashboard" className="btn-memphis btn-memphis-primary text-sm py-2 px-5">
+              {user.user_metadata?.full_name || user.email?.split('@')[0] || 'Dashboard'}
+            </Link>
+          ) : (
+            <>
+              <Link href="/auth/login" className="btn-memphis btn-memphis-outline text-sm py-2 px-5">Login</Link>
+              <Link href="/auth/signup" className="btn-memphis btn-memphis-primary text-sm py-2 px-5 hidden sm:flex">Sign Up</Link>
+            </>
+          )}
         </div>
       </nav>
 
@@ -98,7 +117,7 @@ export default function HomePage() {
             </h1>
 
             <p className="text-txt-2 text-lg max-w-lg mb-8 mx-auto lg:mx-0">
-              SIGIL analyzes developer profiles across LeetCode, GitHub & Codeforces.
+              DevVerify analyzes developer profiles across LeetCode, GitHub & Codeforces.
               It detects copy-paste patterns, burst submissions, and fake contributions
               — then delivers a verdict.
             </p>
@@ -179,7 +198,7 @@ export default function HomePage() {
             27 signals. One verdict.
           </h2>
           <p className="text-txt-3 text-lg max-w-xl mx-auto">
-            SIGIL cross-references multiple data points to separate genuine developers from copy-paste engineers.
+            DevVerify cross-references multiple data points to separate genuine developers from copy-paste engineers.
           </p>
         </div>
 
@@ -215,7 +234,7 @@ export default function HomePage() {
         <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-3">
             <Shield className="w-5 h-5 text-memphis-violet" />
-            <span className="font-display font-bold text-txt-2">SIGIL</span>
+            <span className="font-display font-bold text-txt-2">DevVerify</span>
           </div>
           <p className="text-txt-3 text-sm">Detecting copy-paste developers since 2024.</p>
         </div>

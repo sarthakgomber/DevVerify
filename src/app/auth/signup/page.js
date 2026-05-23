@@ -88,13 +88,13 @@ export default function SignupPage() {
       <div className="geo-cross text-memphis-orange top-[50%] right-[8%] opacity-20" />
 
       <div className="w-full max-w-md relative z-10">
-        {/* SIGIL Branding */}
+        {/* DevVerify Branding */}
         <div className="text-center mb-10">
           <Link href="/" className="inline-flex items-center gap-3 mb-8 group">
             <div className="w-12 h-12 rounded-memphis bg-memphis-violet border-3 border-memphis-orange flex items-center justify-center group-hover:scale-110 transition-transform">
               <Shield className="w-6 h-6 text-white" strokeWidth={2.5} />
             </div>
-            <span className="font-display font-bold text-txt-1 text-2xl tracking-tight">SIGIL</span>
+            <span className="font-display font-bold text-txt-1 text-2xl tracking-tight">DevVerify</span>
           </Link>
           <h1 className="font-display text-3xl font-bold text-txt-1 mb-2">Create your account</h1>
           <p className="text-txt-3 text-sm font-mono tracking-wide uppercase">Start verifying developer profiles</p>
