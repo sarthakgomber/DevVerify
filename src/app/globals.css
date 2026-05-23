@@ -148,7 +148,6 @@ body {
   box-shadow: none !important;
 }
 
-/* ─── MEMPHIS INPUT ─── */
 .input-memphis {
   width: 100%;
   padding: 14px 18px;
@@ -160,6 +159,10 @@ body {
   font-family: 'Inter', sans-serif;
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
   outline: none;
+}
+
+.input-memphis-icon {
+  padding-left: 46px !important;
 }
 
 .input-memphis::placeholder { color: #666680; }

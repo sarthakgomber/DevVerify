@@ -142,19 +142,19 @@ export default function DashboardClient({ user: serverUser, analyses }) {
                 <div className="relative">
                   <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-txt-3" />
                   <input value={leetcode} onChange={e => setLeetcode(e.target.value)}
-                    placeholder="LeetCode username" className="input-memphis pl-11 text-sm" />
+                    placeholder="LeetCode username" className="input-memphis input-memphis-icon text-sm" />
                 </div>
                 {showAdvanced && (
                   <div className="space-y-3 animate-slide-up">
                     <div className="relative">
                       <Code2 className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-txt-3" />
                       <input value={github} onChange={e => setGithub(e.target.value)}
-                        placeholder="GitHub username" className="input-memphis pl-11 text-sm" />
+                        placeholder="GitHub username" className="input-memphis input-memphis-icon text-sm" />
                     </div>
                     <div className="relative">
                       <Target className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-txt-3" />
                       <input value={codeforces} onChange={e => setCodeforces(e.target.value)}
-                        placeholder="Codeforces handle" className="input-memphis pl-11 text-sm" />
+                        placeholder="Codeforces handle" className="input-memphis input-memphis-icon text-sm" />
                     </div>
                   </div>
                 )}

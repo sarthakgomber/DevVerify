@@ -122,7 +122,6 @@ export default function HomePage() {
               — then delivers a verdict.
             </p>
 
-            {/* Input Form */}
             <form onSubmit={handleAnalyze} className="space-y-4 max-w-md mx-auto lg:mx-0">
               <div className="relative">
                 <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-txt-3" />
@@ -131,7 +130,7 @@ export default function HomePage() {
                   value={leetcode}
                   onChange={e => setLeetcode(e.target.value)}
                   placeholder="LeetCode username"
-                  className="input-memphis pl-12"
+                  className="input-memphis input-memphis-icon"
                 />
               </div>
 
@@ -144,7 +143,7 @@ export default function HomePage() {
                       value={github}
                       onChange={e => setGithub(e.target.value)}
                       placeholder="GitHub username"
-                      className="input-memphis pl-12"
+                      className="input-memphis input-memphis-icon"
                     />
                   </div>
                   <div className="relative">
@@ -154,7 +153,7 @@ export default function HomePage() {
                       value={codeforces}
                       onChange={e => setCodeforces(e.target.value)}
                       placeholder="Codeforces handle"
-                      className="input-memphis pl-12"
+                      className="input-memphis input-memphis-icon"
                     />
                   </div>
                 </div>
