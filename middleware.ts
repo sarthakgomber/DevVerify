@@ -27,18 +27,13 @@ export async function middleware(request) {
     }
   )
 
-  // IMPORTANT: Do NOT call getUser on the callback route —
-  // it interferes with the PKCE code exchange
-  const { pathname } = request.nextUrl
-  if (!pathname.startsWith('/auth/callback')) {
-    await supabase.auth.getUser()
-  }
+  await supabase.auth.getUser()
 
   return supabaseResponse
 }
 
 export const config = {
   matcher: [
-    '/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)',
+    '/((?!_next/static|_next/image|favicon.ico|auth/callback|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)',
   ],
 }
