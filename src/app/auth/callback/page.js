@@ -12,29 +12,41 @@ export default function AuthCallbackPage() {
   useEffect(() => {
     const supabase = createClient()
 
-    // The browser client has access to the PKCE code verifier it stored
-    // It will automatically detect the ?code= param and exchange it
-    supabase.auth.onAuthStateChange((event, session) => {
+    // With implicit flow, tokens arrive in the URL hash (#access_token=...)
+    // The Supabase browser client detects them automatically
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
       if (event === 'SIGNED_IN' && session) {
-        router.push('/dashboard')
+        // Small delay to ensure cookies are fully set
+        setTimeout(() => router.push('/dashboard'), 100)
       }
     })
 
-    // Also try to get the session directly (handles the code exchange)
-    async function handleCallback() {
-      const { data, error } = await supabase.auth.getSession()
-      if (error) {
-        console.error('Callback error:', error.message)
-        setError(error.message)
-        setTimeout(() => router.push(`/auth/login?error=${encodeURIComponent(error.message)}`), 2000)
+    // Check if there's already a session (e.g. from hash auto-detection)
+    async function checkSession() {
+      // Give the client a moment to process the hash
+      await new Promise(r => setTimeout(r, 500))
+      const { data: { session }, error: sessionError } = await supabase.auth.getSession()
+      
+      if (sessionError) {
+        console.error('Callback error:', sessionError.message)
+        setError(sessionError.message)
+        setTimeout(() => router.push(`/auth/login?error=${encodeURIComponent(sessionError.message)}`), 2000)
         return
       }
-      if (data?.session) {
+
+      if (session) {
         router.push('/dashboard')
+      } else if (!window.location.hash) {
+        // No hash and no session — something went wrong
+        setError('No authentication data received')
+        setTimeout(() => router.push('/auth/login?error=no_auth_data'), 2000)
       }
+      // If there's a hash but no session yet, the onAuthStateChange listener will handle it
     }
 
-    handleCallback()
+    checkSession()
+
+    return () => subscription.unsubscribe()
   }, [router])
 
   return (
