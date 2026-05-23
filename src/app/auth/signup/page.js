@@ -43,41 +43,76 @@ export default function SignupPage() {
 
   if (success) {
     return (
-      <div className="min-h-screen flex items-center justify-center px-4">
-        <div className="max-w-md text-center">
-          <div className="w-16 h-16 rounded-2xl bg-[var(--glow)] flex items-center justify-center mx-auto mb-6">
-            <span className="text-3xl">✉️</span>
+      <div className="min-h-screen bg-memphis flex items-center justify-center px-4 py-12 relative overflow-hidden">
+        {/* Background Geometric Decorations */}
+        <div className="geo-circle w-32 h-32 border-memphis-violet top-[10%] left-[5%] opacity-20 animate-geo-float" />
+        <div className="geo-circle w-20 h-20 border-memphis-cyan top-[20%] right-[10%] opacity-15 animate-geo-float" style={{ animationDelay: '2s' }} />
+        <div className="geo-triangle border-b-memphis-pink bottom-[20%] left-[15%] opacity-15 animate-geo-spin" />
+        <div className="geo-dots text-memphis-orange top-[8%] right-[20%]" />
+
+        <div className="max-w-md text-center relative z-10">
+          <div className="card-memphis p-10">
+            <div className="geo-circle w-8 h-8 border-memphis-cyan top-4 right-4 opacity-40" />
+
+            <div className="w-20 h-20 rounded-memphis bg-memphis-green/10 border-3 border-memphis-green flex items-center justify-center mx-auto mb-6">
+              <span className="text-4xl">✉️</span>
+            </div>
+            <h1 className="font-display text-3xl font-bold text-txt-1 mb-3">Check your email</h1>
+            <p className="text-txt-2 text-sm mb-2 leading-relaxed">
+              We sent a confirmation link to
+            </p>
+            <p className="font-mono text-memphis-cyan text-sm mb-6 break-all">{email}</p>
+            <p className="text-txt-3 text-xs mb-8 font-mono uppercase tracking-wide">
+              Click the link to activate your account
+            </p>
+            <Link href="/auth/login" className="btn-memphis btn-memphis-primary inline-flex">
+              Go to login →
+            </Link>
           </div>
-          <h1 className="text-2xl font-bold text-[var(--text)] mb-3">Check your email</h1>
-          <p className="text-[var(--text-2)] text-sm mb-6">
-            We sent a confirmation link to <strong className="text-[var(--text)]">{email}</strong>.
-            Click it to activate your account.
-          </p>
-          <Link href="/auth/login" className="btn-primary inline-block">Go to login →</Link>
         </div>
       </div>
     )
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center px-4">
-      <div className="w-full max-w-md">
-        <div className="text-center mb-8">
-          <Link href="/" className="inline-flex items-center gap-2 mb-6 group">
-            <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-[var(--accent)] to-purple-600 flex items-center justify-center">
-              <Shield className="w-5 h-5 text-white" strokeWidth={2.5} />
+    <div className="min-h-screen bg-memphis flex items-center justify-center px-4 py-12 relative overflow-hidden">
+      {/* Background Geometric Decorations */}
+      <div className="geo-circle w-32 h-32 border-memphis-orange top-[10%] right-[5%] opacity-20 animate-geo-float" />
+      <div className="geo-circle w-20 h-20 border-memphis-violet top-[20%] left-[10%] opacity-15 animate-geo-float" style={{ animationDelay: '2s' }} />
+      <div className="geo-circle w-14 h-14 border-memphis-pink bottom-[15%] right-[12%] opacity-20 animate-geo-float" style={{ animationDelay: '4s' }} />
+      <div className="geo-triangle border-b-memphis-cyan top-[30%] right-[20%] opacity-15 animate-geo-spin" />
+      <div className="geo-triangle border-b-memphis-orange bottom-[25%] left-[15%] opacity-15 animate-geo-spin" style={{ animationDelay: '3s' }} />
+      <div className="geo-dots text-memphis-cyan top-[60%] left-[8%]" />
+      <div className="geo-dots text-memphis-pink top-[8%] right-[40%]" />
+      <div className="geo-cross text-memphis-violet bottom-[30%] left-[30%] opacity-20" />
+      <div className="geo-cross text-memphis-orange top-[50%] right-[8%] opacity-20" />
+
+      <div className="w-full max-w-md relative z-10">
+        {/* SIGIL Branding */}
+        <div className="text-center mb-10">
+          <Link href="/" className="inline-flex items-center gap-3 mb-8 group">
+            <div className="w-12 h-12 rounded-memphis bg-memphis-violet border-3 border-memphis-orange flex items-center justify-center group-hover:scale-110 transition-transform">
+              <Shield className="w-6 h-6 text-white" strokeWidth={2.5} />
             </div>
-            <span className="font-bold text-[var(--text)] text-lg">DevVerify</span>
+            <span className="font-display font-bold text-txt-1 text-2xl tracking-tight">SIGIL</span>
           </Link>
-          <h1 className="text-2xl font-bold text-[var(--text)]">Create your account</h1>
-          <p className="text-[var(--text-2)] text-sm mt-1">Start verifying developer profiles today</p>
+          <h1 className="font-display text-3xl font-bold text-txt-1 mb-2">Create your account</h1>
+          <p className="text-txt-3 text-sm font-mono tracking-wide uppercase">Start verifying developer profiles</p>
         </div>
 
-        <div className="card p-8">
-          {/* OAuth buttons */}
-          <div className="space-y-3 mb-6">
-            <button onClick={() => handleOAuth('google')} disabled={!!oauthLoading}
-              className="btn-secondary w-full flex items-center justify-center gap-3">
+        {/* Main Card */}
+        <div className="card-memphis p-8">
+          {/* Geometric decoration inside card */}
+          <div className="geo-circle w-8 h-8 border-memphis-cyan top-4 right-4 opacity-40" />
+          <div className="geo-triangle border-b-memphis-orange bottom-4 left-4 opacity-30" />
+
+          {/* OAuth Buttons */}
+          <div className="space-y-3 mb-6 relative z-10">
+            <button
+              onClick={() => handleOAuth('google')}
+              disabled={!!oauthLoading}
+              className="btn-memphis btn-memphis-outline w-full"
+            >
               <svg className="w-5 h-5" viewBox="0 0 24 24">
                 <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
                 <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
@@ -87,45 +122,87 @@ export default function SignupPage() {
               {oauthLoading === 'google' ? 'Redirecting...' : 'Continue with Google'}
             </button>
 
-            <button onClick={() => handleOAuth('github')} disabled={!!oauthLoading}
-              className="btn-secondary w-full flex items-center justify-center gap-3">
+            <button
+              onClick={() => handleOAuth('github')}
+              disabled={!!oauthLoading}
+              className="btn-memphis btn-memphis-outline w-full"
+            >
               <GithubIcon className="w-5 h-5" />
               {oauthLoading === 'github' ? 'Redirecting...' : 'Continue with GitHub'}
             </button>
           </div>
 
-          <div className="flex items-center gap-3 mb-6">
-            <div className="flex-1 h-px bg-[var(--border)]" />
-            <span className="text-[var(--text-3)] text-xs">or sign up with email</span>
-            <div className="flex-1 h-px bg-[var(--border)]" />
+          {/* Divider */}
+          <div className="flex items-center gap-4 mb-6">
+            <div className="flex-1 h-[3px] bg-surface-3 rounded-full" />
+            <span className="text-txt-3 text-xs font-mono uppercase tracking-widest">or</span>
+            <div className="flex-1 h-[3px] bg-surface-3 rounded-full" />
           </div>
 
-          <form onSubmit={handleSignup} className="space-y-4">
+          {/* Email/Password Form */}
+          <form onSubmit={handleSignup} className="space-y-5 relative z-10">
             <div>
-              <label className="block text-sm font-medium text-[var(--text-2)] mb-1.5">Full name</label>
-              <input type="text" value={name} onChange={e => setName(e.target.value)}
-                placeholder="John Doe" className="input" />
+              <label className="block text-sm font-display font-semibold text-txt-2 mb-2 uppercase tracking-wide">
+                Full name
+              </label>
+              <input
+                type="text"
+                value={name}
+                onChange={e => setName(e.target.value)}
+                placeholder="John Doe"
+                className="input-memphis"
+              />
             </div>
             <div>
-              <label className="block text-sm font-medium text-[var(--text-2)] mb-1.5">Email</label>
-              <input type="email" value={email} onChange={e => setEmail(e.target.value)}
-                placeholder="you@example.com" className="input" required />
+              <label className="block text-sm font-display font-semibold text-txt-2 mb-2 uppercase tracking-wide">
+                Email
+              </label>
+              <input
+                type="email"
+                value={email}
+                onChange={e => setEmail(e.target.value)}
+                placeholder="you@example.com"
+                className="input-memphis"
+                required
+              />
             </div>
             <div>
-              <label className="block text-sm font-medium text-[var(--text-2)] mb-1.5">Password</label>
-              <input type="password" value={password} onChange={e => setPassword(e.target.value)}
-                placeholder="••••••••" className="input" required minLength={6} />
+              <label className="block text-sm font-display font-semibold text-txt-2 mb-2 uppercase tracking-wide">
+                Password
+              </label>
+              <input
+                type="password"
+                value={password}
+                onChange={e => setPassword(e.target.value)}
+                placeholder="••••••••"
+                className="input-memphis"
+                required
+                minLength={6}
+              />
             </div>
-            {error && <p className="text-sm bg-[var(--red-glow)] text-[var(--red)] px-3 py-2 rounded-lg">{error}</p>}
-            <button type="submit" disabled={loading} className="btn-primary w-full">
-              {loading ? 'Creating account...' : 'Create account'}
+
+            {error && (
+              <div className="flex items-center gap-2 text-sm bg-memphis-red/10 text-memphis-red border-3 border-memphis-red/30 px-4 py-3 rounded-memphis font-display font-semibold">
+                <span>⚠</span> {error}
+              </div>
+            )}
+
+            <button
+              type="submit"
+              disabled={loading}
+              className="btn-memphis btn-memphis-orange w-full"
+            >
+              {loading ? 'Creating account...' : 'Create account →'}
             </button>
           </form>
         </div>
 
-        <p className="text-center text-sm text-[var(--text-3)] mt-6">
+        {/* Bottom Link */}
+        <p className="text-center text-sm text-txt-3 mt-8 font-display">
           Already have an account?{' '}
-          <Link href="/auth/login" className="text-[var(--accent-2)] hover:underline font-medium">Sign in</Link>
+          <Link href="/auth/login" className="text-memphis-violet hover:text-memphis-cyan font-bold transition-colors underline underline-offset-4 decoration-2 decoration-memphis-violet/50 hover:decoration-memphis-cyan">
+            Sign in
+          </Link>
         </p>
       </div>
     </div>

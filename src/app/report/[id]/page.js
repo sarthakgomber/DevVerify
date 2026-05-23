@@ -6,8 +6,8 @@ import ReportClient from './ReportClient'
 
 export async function generateMetadata({ params }) {
   return {
-    title: `DevVerify Report — ${params.id}`,
-    description: 'Developer profile credibility report by DevVerify',
+    title: `SIGIL Report — ${params.id}`,
+    description: 'Developer code DNA credibility report by SIGIL',
   }
 }
 
